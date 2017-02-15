@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: com.guang.android.point.MyPlugin
+
 
 android {
     compileSdkVersion 25
