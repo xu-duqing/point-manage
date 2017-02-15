@@ -9,5 +9,4 @@ dependencies {
 
 repositories {
     jcenter()
-    maven { url "http://repo.caimi-inc.com/nexus/content/repositories/releases/" }
 }
