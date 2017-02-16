@@ -3,13 +3,11 @@ package com.guang.android.point
 import javassist.ClassPool
 import javassist.CtClass
 import javassist.CtConstructor
-import javassist.CtMethod
-
 
 public class MyInject {
 
     private static ClassPool pool = ClassPool.getDefault()
-    private static String injectStr = "System.out.println(\"start point!!\" ); ";
+    private static String injectStr = "Log.i(\"LogInfo\",\"埋点\");";
 
     public static void injectDir(String path,String packageName,String sdkDir){
 
@@ -42,20 +40,6 @@ public class MyInject {
                         if (c.isFrozen()) {
                             c.defrost()
                         }
-
-                        CtMethod[] mtds = c.getMethods()
-
-                        for (int i = 0; i < mtds.length; i++) {
-                            CtMethod mtd = mtds[i]
-                            System.out.println("********************")
-                            System.out.println(mtd.getName())
-                            CtClass[] ctcs = mtd.getParameterTypes()
-
-                            ctcs.each { CtClass ctClass ->
-                                System.out.println(ctClass.getName())
-                            }
-                        }
-
 
                         CtConstructor[] cts = c.getDeclaredConstructors()
                         pool.importPackage("android.util.Log");
