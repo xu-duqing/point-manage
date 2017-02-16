@@ -18,9 +18,14 @@ import org.gradle.api.Project
 public class MyTransform extends Transform{
 
     Project project
+    def sdkDir
 
     public MyTransform(Project project){
         this.project = project
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        sdkDir = properties.getProperty('sdk.dir')
     }
 
     // 设置我们自定义的Transform对应的Task名称
@@ -54,6 +59,8 @@ public class MyTransform extends Transform{
 
             //对类型为“文件夹”的input进行遍历
             input.directoryInputs.each { DirectoryInput directoryInput ->
+
+                MyInject.injectDir(directoryInput.file.absolutePath,"com/guang/android/pointmanage",sdkDir)
 
                 // 获取output目录
                 def dest = outputProvider.getContentLocation(directoryInput.name,
